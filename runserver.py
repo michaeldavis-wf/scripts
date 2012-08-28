@@ -1,4 +1,4 @@
-import subprocess
+mport subprocess
 import sys
 import signal
 import os
@@ -25,20 +25,21 @@ def main():
 
     while 1:
         line = output.readline().strip('\n')
-	split_location = str.find(line, ']') + 1
-	first_part = line[:split_location]
-	second_part = line[split_location:]
-	
-        if 'WARNING' in line:
-             print color.YELLOW + first_part + color.ENDC + second_part 
-        elif 'DEBUG' in line:
-            print color.BLUE + first_part + color.ENDC + second_part 
-        elif 'INFO' in line:
-            print color.GREEN + first_part + color.ENDC + second_part 
-        elif 'ERROR' in line:
-            print color.RED + first_part + color.ENDC + second_part 
-        else:
-            print line
+        split_location = str.find(line, ']') + 1
+        first_part = line[:split_location]
+        second_part = line[split_location:]
+
+        if ']' in line:
+                if line.startswith('WARNING'):
+                        print color.YELLOW + first_part + color.ENDC + second_part
+                elif line.startswith('DEBUG'):
+                        print color.BLUE + first_part + color.ENDC + second_part
+                elif line.startswith('INFO'):
+                        print color.GREEN + first_part + color.ENDC + second_part
+                elif line.startswith('ERROR'):
+                        print color.RED + first_part + color.ENDC + second_part
+                else:
+                        print line
 
 if __name__ == '__main__':
     main()
