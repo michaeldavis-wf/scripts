@@ -1,4 +1,4 @@
-mport subprocess
+import subprocess
 import sys
 import signal
 import os
@@ -10,6 +10,12 @@ class color:
     YELLOW = '\033[93m'
     RED = '\033[91m'
     ENDC = '\033[0m'
+
+class custom_color:
+    WARNING = color.YELLOW
+    DEBUG = color.BLUE
+    INFO = color.GREEN
+    ERROR = color.RED
 
 def main():
     process = subprocess.Popen("python manage.py runserver", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -28,18 +34,18 @@ def main():
         split_location = str.find(line, ']') + 1
         first_part = line[:split_location]
         second_part = line[split_location:]
+	
+        if line.startswith('WARNING'):
+            print custom_color.WARNING + first_part + color.ENDC + second_part 
+        elif line.startswith('DEBUG'):
+            print custom_color.DEBUG + first_part + color.ENDC + second_part 
+       	elif line.startswith('INFO'):
+	    print custom_color.INFO + first_part + color.ENDC + second_part 
+       	elif line.startswith('ERROR'):
+            print custom_color.ERROR + first_part + color.ENDC + second_part 
+        else:
+            print line
 
-        if ']' in line:
-                if line.startswith('WARNING'):
-                        print color.YELLOW + first_part + color.ENDC + second_part
-                elif line.startswith('DEBUG'):
-                        print color.BLUE + first_part + color.ENDC + second_part
-                elif line.startswith('INFO'):
-                        print color.GREEN + first_part + color.ENDC + second_part
-                elif line.startswith('ERROR'):
-                        print color.RED + first_part + color.ENDC + second_part
-                else:
-                        print line
 
 if __name__ == '__main__':
     main()
