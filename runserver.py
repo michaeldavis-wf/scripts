@@ -3,6 +3,8 @@ import sys
 import signal
 import os
 
+manage_py_process = "python manage.py runserver"
+
 class color:
     PINK = '\033[95m'
     BLUE = '\033[94m'
@@ -18,34 +20,34 @@ class custom_color:
     ERROR = color.RED
 
 def main():
-    process = subprocess.Popen("python manage.py runserver", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen("%s %s" % (manage_py_process, (' '.join(sys.argv[1:]))), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output = process.stderr
 
     def signal_handler(input_signal, frame):
         os.kill(process.pid, signal.SIGTERM)
-        sys.stdout.write(output.readline())
-        sys.stdout.write(output.readline())
         sys.exit(0)
 
     signal.signal(signal.SIGINT, signal_handler)
 
-    while 1:
+    while output:
         line = output.readline().strip('\n')
-        split_location = str.find(line, ']') + 1
-        first_part = line[:split_location]
-        second_part = line[split_location:]
-	
-        if line.startswith('WARNING'):
-            print custom_color.WARNING + first_part + color.ENDC + second_part 
-        elif line.startswith('DEBUG'):
-            print custom_color.DEBUG + first_part + color.ENDC + second_part 
-       	elif line.startswith('INFO'):
-	    print custom_color.INFO + first_part + color.ENDC + second_part 
-       	elif line.startswith('ERROR'):
-            print custom_color.ERROR + first_part + color.ENDC + second_part 
+        if line:
+            split_location = str.find(line, ']') + 1
+            first_part = line[:split_location]
+            second_part = line[split_location:]
+    	
+            if line.startswith('WARNING'):
+                print custom_color.WARNING + first_part + color.ENDC + second_part 
+            elif line.startswith('DEBUG'):
+                print custom_color.DEBUG + first_part + color.ENDC + second_part 
+            elif line.startswith('INFO'):
+    	       print custom_color.INFO + first_part + color.ENDC + second_part 
+            elif line.startswith('ERROR'):
+                print custom_color.ERROR + first_part + color.ENDC + second_part 
+            else:
+                print line
         else:
-            print line
-
+            sys.exit(0)
 
 if __name__ == '__main__':
     main()
