@@ -2,8 +2,12 @@ import subprocess
 import sys
 import signal
 import os
+import settingslocal
 
 manage_py_process = "python manage.py runserver"
+
+if hasattr(settingslocal, 'RUNSERVER_PROCESS'):
+    manage_py_process = getattr(settingslocal, 'RUNSERVER_PROCESS')
 
 class color:
     PINK = '\033[95m'
@@ -43,7 +47,7 @@ def main():
             elif line.startswith('DEBUG'):
                 print custom_color.DEBUG + first_part + color.ENDC + second_part 
             elif line.startswith('INFO'):
-    	       print custom_color.INFO + first_part + color.ENDC + second_part 
+                print custom_color.INFO + first_part + color.ENDC + second_part
             elif line.startswith('ERROR'):
                 print custom_color.ERROR + first_part + color.ENDC + second_part 
             else:
