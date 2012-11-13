@@ -29,9 +29,11 @@ def main():
 
     signal.signal(signal.SIGINT, signal_handler)
 
+    blank_lines = 0
     while output:
         line = output.readline().strip('\n')
         if line:
+            blank_lines = 0
             split_location = str.find(line, ']') + 1
             first_part = line[:split_location]
             second_part = line[split_location:]
@@ -47,7 +49,10 @@ def main():
             else:
                 print line
         else:
-            sys.exit(0)
+            print line
+            blank_lines += 1
+            if blank_lines > 4:
+                sys.exit(0)
 
 if __name__ == '__main__':
     main()
