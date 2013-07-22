@@ -58,7 +58,7 @@ def main():
 	print bcolors.OKGREEN + "\tDev build completed." + bcolors.ENDC
 	#subprocess.Popen('say "Dev build completed."', shell=True)
 	net_time = datetime.datetime.now() - start_time
-	subprocess.Popen('terminal-notifier -message "The dev build has completed successfully after %s seconds." -title "Dev Build Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
+	subprocess.Popen('/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -message "The dev build has completed successfully after %s seconds." -title "Dev Build Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
 	print "\n"
 	sys.exit()
 

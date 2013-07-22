@@ -24,7 +24,9 @@ def main():
 	(options, args) = parser.parse_args()
 	print "\n"
 	print bcolors.OKBLUE + "\tBegin build for deploy" + bcolors.ENDC
-	print "\n"
+        print bcolors.OKBLUE + "\tAppID:    " + bcolors.ENDC + options.appid
+        print bcolors.OKBLUE + "\tVersion:  " + bcolors.ENDC + options.version
+        print "\n"
 	replace('settingslocal.py','MEDIA_COMPRESSED = False', 'MEDIA_COMPRESSED = True')
 	print "\tMedia will now be compressed"
 	replace('settingslocal.py','MEDIA_MERGED = False', 'MEDIA_MERGED = True')
@@ -67,7 +69,7 @@ def main():
 	print bcolors.OKGREEN + "\tDeploy build completed" + bcolors.ENDC
 	#subprocess.Popen('say "Build for deploy completed."', shell=True)
 	
-	subprocess.Popen('terminal-notifier -message "Preping for deploy build has completed successfully after %s seconds." -title "Prep for Deploy Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
+	subprocess.Popen('/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -message "Preping for deploy build has completed successfully after %s seconds." -title "Prep for Deploy Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
 	print "\n"
 	sys.exit()
 
