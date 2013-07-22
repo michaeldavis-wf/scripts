@@ -68,9 +68,13 @@ def main():
 	net_time = datetime.datetime.now() - start_time
 	print bcolors.OKGREEN + "\tDeploy build completed" + bcolors.ENDC
 	#subprocess.Popen('say "Build for deploy completed."', shell=True)
-	
-	subprocess.Popen('/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -message "Preping for deploy build has completed successfully after %s seconds." -title "Prep for Deploy Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
-	print "\n"
+
+        try:	
+	    subprocess.Popen('terminal-notifier -message "Preping for deploy build has completed successfully after %s seconds." -title "Prep for Deploy Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
+	except Exception:
+            print "There was a problem executing terminal-notifier\n"
+
+        print "\n"
 	sys.exit()
 
 def replace(file, pattern, subst):
