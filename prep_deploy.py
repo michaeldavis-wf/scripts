@@ -75,7 +75,7 @@ def main():
     try:
         subprocess.Popen('terminal-notifier -message "Preping for deploy build has completed successfully after %s seconds." -title "Prep for Deploy Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
     except Exception:
-        print "There was a problem executing terminal-notifier\n"
+        pass
 
     print "\n"
     sys.exit()
