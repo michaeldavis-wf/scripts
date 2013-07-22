@@ -65,7 +65,7 @@ def main():
     try:
         subprocess.Popen('terminal-notifier -message "The dev build has completed successfully after %s seconds." -title "Dev Build Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
     except Exception:
-        print "There was a problem executing terminal-notifier\n"
+        pass
 
     print "\n"
     sys.exit()
