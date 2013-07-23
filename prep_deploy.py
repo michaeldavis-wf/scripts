@@ -47,7 +47,7 @@ def main():
     if options.full:
         process = subprocess.Popen("ant set_cachebuster full", shell=True, stdout=subprocess.PIPE)
     else:
-        process = subprocess.Popen("ant set_cachebuster clean-no-flex stage-no-flex generate-media",
+        process = subprocess.Popen("ant -f build_parallel.xml django",
                                    shell=True, stdout=subprocess.PIPE)
     stdout = process.communicate()[0]
     swf_num = 1
