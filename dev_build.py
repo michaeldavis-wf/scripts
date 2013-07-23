@@ -62,10 +62,8 @@ def main():
     # subprocess.Popen('say "Dev build completed."', shell=True)
     net_time = datetime.datetime.now() - start_time
 
-    try:
-        subprocess.Popen('terminal-notifier -message "The dev build has completed successfully after %s seconds." -title "Dev Build Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
-    except Exception:
-        pass
+    devnull = open('/dev/null', 'w')
+    subprocess.Popen('terminal-notifier -message "The dev build has completed successfully after %s seconds." -title "Dev Build Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE, stderr=devnull) 
 
     print "\n"
     sys.exit()
