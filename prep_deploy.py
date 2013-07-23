@@ -72,10 +72,8 @@ def main():
     print bcolors.OKGREEN + "\tDeploy build completed" + bcolors.ENDC
     # subprocess.Popen('say "Build for deploy completed."', shell=True)
 
-    try:
-        subprocess.Popen('terminal-notifier -message "Preping for deploy build has completed successfully after %s seconds." -title "Prep for Deploy Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE)
-    except Exception:
-        pass
+    devnull = open('/dev/null', 'w')
+    subprocess.Popen('terminal-notifier -message "Preping for deploy build has completed successfully after %s seconds." -title "Prep for Deploy Completed"' % net_time.seconds, shell=True, stdout=subprocess.PIPE, stderr=devnull)
 
     print "\n"
     sys.exit()
