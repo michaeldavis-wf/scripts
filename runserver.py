@@ -55,7 +55,7 @@ def main():
         else:
             print line
             blank_lines += 1
-            if blank_lines > 4:
+            if blank_lines > 20:
                 sys.exit(0)
 
 if __name__ == '__main__':
